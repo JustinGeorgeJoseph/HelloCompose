@@ -1,6 +1,7 @@
 package com.justin.hellocompose
 
 import android.os.Bundle
+import android.os.Message
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,31 +13,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.justin.hellocompose.ui.theme.HelloComposeTheme
 
+data class Book(val author:String, val name: String)
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HelloComposeTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            showMessageCard(message = Book("Justin","Audacity of hope"))
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun showMessageCard(message:Book){
+    Text(text = message.author)
+    Text(text = message.name)
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun DefaultPreview() {
-    HelloComposeTheme {
-        Greeting("Android")
-    }
+fun MessageCard(){
+    showMessageCard(message = Book("Justin","Audacity of hope"))
 }
