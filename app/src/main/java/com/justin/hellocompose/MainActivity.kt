@@ -5,6 +5,7 @@ import android.os.Message
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -24,20 +25,32 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            showMessageCard(message = Book("Justin","Audacity of hope"))
+            HelloComposeTheme {
+                showMessageCard(message = Book("Justin","Audacity of hope"))
+            }
         }
     }
 }
 
 @Composable
 fun showMessageCard(message:Book){
-    Row (modifier = Modifier.padding(all = 8.dp)){
+    Row (modifier = Modifier.padding(all = 8.dp),){
         Image(painter = painterResource(id = R.drawable.justin),
             contentDescription = "Test image",
-        modifier = Modifier.size(40.dp).clip(CircleShape))
-        Column(modifier = Modifier.padding(start = 8.dp)){
-            Text(text = message.author)
-            Text(text = message.name,modifier = Modifier.padding(top = 4.dp))
+        modifier = Modifier
+            .size(40.dp)
+            .clip(CircleShape)
+            .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
+        )
+        Column(modifier = Modifier.padding(start = 8.dp)) {
+            Text(
+                text = message.author,
+                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.subtitle2
+            )
+            Surface(shape = MaterialTheme.shapes.medium, elevation = 1.dp) {
+                Text(text = message.name,modifier = Modifier.padding(all = 8.dp))
+            }
         }
     }
 
